@@ -76,8 +76,8 @@ void hand(int upper, int middle, int lower)
 void loop()
 {
     int state = get_input()
-
-        if (state == 0)
+    
+    if (state == 0)
     {
         hand(0, 0, 0);
     }
