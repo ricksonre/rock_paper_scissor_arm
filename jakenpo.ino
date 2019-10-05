@@ -14,7 +14,7 @@ Servos
     d0,d1,d2
 
 Buttons
-    d3,d4,d5 
+    d3,d4,d5
 
 Max rotation
     12: 0 1023
@@ -22,6 +22,10 @@ Max rotation
     15, 16 ?
     17 200 - 800
     18 200 - 800?
+   
+    Observation:
+      c++11 does not work
+      enuns don't work
 */
 #include <ax12.h>
 #include <Servo.h>
@@ -43,7 +47,7 @@ public:
         curr = millis();
         long diff = curr - start;
 
-        return diff.count();
+        return diff;
     }
 
     void restart()
@@ -59,10 +63,10 @@ class Joint
     double velocity;
     int goal;
     int min_rotation, max_rotation;
-    Timer t;
+    Timer timer;
 
 public:
-    Joint(int id, double vel, int min,int max)
+    Joint(int id, double vel, int min, int max)
     {
         this->id = id;
         velocity = vel;
@@ -72,21 +76,21 @@ public:
 
     void update()
     {
-        if(timer.get_millis() > 1/velocity)
+        if (timer.get_millis() > 1 / velocity)
         {
             int curr = GetPosition(id);
-            
-            if(goal < curr)
-                SetPosition(id,curr + 1);
+
+            if (goal < curr)
+                SetPosition(id, curr + 1);
             if (goal > curr)
                 SetPosition(id, curr - 1);
-        
+
             timer.restart();
         }
     }
     void move(int pos)
     {
-        if(pos < max_rotation && pos > min_rotation)
+        if (pos < max_rotation && pos > min_rotation)
         {
             goal = pos;
         }
@@ -97,18 +101,9 @@ public:
     }
 }
 
-enum class State
-{
-    rock,
-    paper,
-    scissors,
-    none,
-    cancel
-} state;
-
-constexpr int button_1 = 3;
-constexpr int button_2 = 4;
-constexpr int button_3 = 5;
+const int button_1 = 3;
+const int button_2 = 4;
+const int button_3 = 5;
 
 Servo servo_1;
 Servo servo_2;
@@ -126,18 +121,21 @@ void setup()
     pinMode(button_2, INPUT);
     pinMode(button_3, INPUT);
 
-    hand(0,0,0);
+    hand(0, 0, 0);
 }
-
-State get_input()
+int get_input()
 {
-    if (digitalRead(button_1) == HIGH)      return State::paper;
-    else if (digitalRead(button_2) == HIGH) return State::rock;
-    else if (digitalRead(button_3) == HIGH) return State::scissors;
-    else                                    return State::none;
+    if (digitalRead(button_1) == HIGH)
+        return 0;
+    else if (digitalRead(button_2) == HIGH)
+        return 1;
+    else if (digitalRead(button_3) == HIGH)
+        return 2;
+    else
+        return 3;
 }
 
-void hand(int upper,int middle,int lower)
+void hand(int upper, int middle, int lower)
 {
     servo_1.write(upper);
     servo_2.write(middle);
@@ -146,19 +144,18 @@ void hand(int upper,int middle,int lower)
 
 void loop()
 {
-    switch(get_input())
+    int state = get_input()
+
+        if (state == 0)
     {
-        case State::rock:
-            hand(0,0,0);
-            break;
-        case State::paper:
-            hand(180, 180, 180);
-            break;
-        case State::scissors:
-            hand(180, 180, 0);
-            break;
-        case State::none:
-            break;
+        hand(0, 0, 0);
+    }
+    else if (state == 1)
+    {
+        hand(180, 180, 180);
+    }
+    else if (state == 2)
+    {
+        hand(180, 180, 0);
     }
 }
-
