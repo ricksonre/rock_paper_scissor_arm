@@ -3,39 +3,44 @@
  
 BioloidController bioloid = BioloidController(1000000);
  
-int R2;
-int R4;
-int R6;
-int R8;
+int R12;
+int R13;
+int R14;
+int R15;
+int R16;
+int R17;
+int R18;
  
 void setup(){
+  Serial.begin(9600);
 // Initially moving all servos to default position.
-  SetPosition(1, 512);
-  SetPosition(2, 512);
-  SetPosition(3, 512);
-  SetPosition(4, 512);
-  SetPosition(5, 512);
-  SetPosition(6, 512);
-  SetPosition(7, 512);
-  SetPosition(8, 512);
+  SetPosition(12, 512);
+  SetPosition(13, 512);
+  SetPosition(14, 512);
+  SetPosition(15, 512);
+  SetPosition(16, 512);
+  SetPosition(17, 512);
+  SetPosition(18, 512);
 // Turning torque off of the servos on one arm.
-  Relax(2);    
-  Relax(4);
-  Relax(6);
-  Relax(8);
+  Relax(12);    
+  Relax(13);
+  Relax(14);
+  Relax(15);
+  Relax(16);
+  Relax(17);
+  Relax(18);
   delay(1000);
 }
  
 void loop(){
 // Reading "Present Position" register value, writing it to variable
-  R2 = ax12GetRegister(2, 36, 2);
-  R4 = ax12GetRegister(4, 36, 2);
-  R6 = ax12GetRegister(6, 36, 2);
-  R8 = ax12GetRegister(8, 36, 2);
-// Using the "Present Position" values of one arm, writing them to other arm
-  SetPosition(1, R2);
-  SetPosition(3, R4);
-  SetPosition(5, R6);  
-  SetPosition(7, R8);  
-  delay(20);
+  Serial.println(ax12GetRegister(12, 36, 2));
+  Serial.println(ax12GetRegister(13, 36, 2));
+  Serial.println(ax12GetRegister(14, 36, 2));
+  Serial.println(ax12GetRegister(15, 36, 2));
+  Serial.println(ax12GetRegister(16, 36, 2));
+  Serial.println(ax12GetRegister(17, 36, 2));
+  Serial.println(ax12GetRegister(18, 36, 2));
+
+  delay(5000);
 }
