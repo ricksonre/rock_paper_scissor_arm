@@ -56,14 +56,8 @@ void setup()
 
     hand(0, 0, 0);
 
-    SetPosition(12,512);
-    SetPosition(13, 512);
-    SetPosition(14, 512);
-    SetPosition(15, 512);
-    SetPosition(16, 512);
-    SetPosition(17, 512);
-    SetPosition(18, 512);
-    delay(1000);
+    center();
+    
 }
 int get_input()
 {
@@ -84,21 +78,67 @@ void hand(int upper, int middle, int lower)
     servo_3.write(lower);
 }
 
+void center()
+{
+   SetPosition(12,512);
+    SetPosition(13, 512);
+    SetPosition(14, 512);
+    SetPosition(15, 512);
+    SetPosition(16, 512);
+    SetPosition(17, 512);
+    SetPosition(18, 512);
+    delay(800);
+}
+
 void loop()
 {
-    int state = get_input()
+    int state = get_input();
     
     if (state == 0)
     {
-        shoulder_1.move(800);
-        shoulder_2.move(800);
-        delay(500);
-        
+        center();
+      
+        for(int i=512;i<825;i++)
+        {
+          SetPosition(16,512-i);
+          SetPosition(15,i);
+          delay(2);
+        }      
+
+        for(int i=512;i<825;i++)
+        {
+          SetPosition(17,i);
+          delay(2);
+        }
+        for(int i=825;i>200;i--)
+        {
+          SetPosition(17,i);
+          delay(2);
+        }
+
+        for(int j=0;j<4;j++)
+        {
+            for(int i=200;i<825;i++)
+          {
+            SetPosition(17,i);
+            delay(2);
+          }
+           for(int i=825;i>200;i--)
+          {
+            SetPosition(17,i);
+            delay(2);
+          }
+        }
 
         hand(0, 0, 0);
     }
     else if (state == 1)
     {
+        
+        SetPosition(16,512);
+        SetPosition(15,512);
+        delay(1000);
+      
         hand(180, 180, 180);
     }
     else if (state == 2)
