@@ -135,8 +135,7 @@ void loop()
     else if (state == 1)
     {
         
-        SetPosition(16,512);
-        SetPosition(15,512);
+        center();
         delay(1000);
       
         hand(180, 180, 180);
@@ -145,12 +144,12 @@ void loop()
     {
         center();
 
-        for (int i = 512; i > 400; i++)
+        /*for (int i = 512; i > 400; i++)
         {
             SetPosition(16, i);
             SetPosition(15, 512 - i);
             delay(2);
-        }
+        }*/
 
         for (int i = 512; i < 825; i++)
         {
@@ -163,7 +162,7 @@ void loop()
             delay(2);
         }
 
-        for (int j = 0; j < 4; j++)
+        /*for (int j = 0; j < 4; j++)
         {
             for (int i = 500; i < 825; i++)
             {
@@ -175,7 +174,7 @@ void loop()
                 SetPosition(16, i);
                 delay(2);
             }
-        }
+        }*/
     }
     else
     {
