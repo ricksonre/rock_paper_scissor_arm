@@ -9,13 +9,10 @@ ax12.h
     GetRightIRData(id)
     GetObstacles(id)
     PlayTone(id, note)
-
 Servos
     d0,d1,d2
-
 Buttons
     d3,d4,d5
-
 Max rotation
     12: 0 1023
     13, 14 ?
@@ -40,8 +37,6 @@ Servo servo_1;
 Servo servo_2;
 Servo servo_3;
 
-
-
 void setup()
 {
     Serial.begin(9600);
@@ -57,7 +52,6 @@ void setup()
     hand(0, 0, 0);
 
     center();
-    
 }
 int get_input()
 {
@@ -80,7 +74,7 @@ void hand(int upper, int middle, int lower)
 
 void center()
 {
-   SetPosition(12,512);
+    SetPosition(12, 512);
     SetPosition(13, 512);
     SetPosition(14, 512);
     SetPosition(15, 512);
@@ -93,92 +87,56 @@ void center()
 void loop()
 {
     int state = get_input();
-    
+
     if (state == 0)
     {
         center();
-      
-        for(int i=512;i<825;i++)
-        {
-          SetPosition(16,512-i);
-          SetPosition(15,i);
-          delay(2);
-        }      
 
-        for(int i=512;i<825;i++)
+        for (int i = 512; i < 825; i++)
         {
-          SetPosition(17,i);
-          delay(2);
-        }
-        for(int i=825;i>200;i--)
-        {
-          SetPosition(17,i);
-          delay(2);
+            SetPosition(16, 512 - i);
+            SetPosition(15, i);
+            delay(2);
         }
 
-        for(int j=0;j<4;j++)
+        for (int i = 512; i < 825; i++)
         {
-            for(int i=200;i<825;i++)
-          {
-            SetPosition(17,i);
+            SetPosition(17, i);
             delay(2);
-          }
-           for(int i=825;i>200;i--)
-          {
-            SetPosition(17,i);
+        }
+        for (int i = 825; i > 200; i--)
+        {
+            SetPosition(17, i);
             delay(2);
-          }
+        }
+
+        for (int j = 0; j < 4; j++)
+        {
+            for (int i = 200; i < 825; i++)
+            {
+                SetPosition(17, i);
+                delay(2);
+            }
+            for (int i = 825; i > 200; i--)
+            {
+                SetPosition(17, i);
+                delay(2);
+            }
         }
 
         hand(0, 0, 0);
     }
     else if (state == 1)
     {
-        
-        center();
+
+        SetPosition(16, 512);
+        SetPosition(15, 512);
         delay(1000);
-      
+
         hand(180, 180, 180);
     }
     else if (state == 2)
     {
-        center();
-
-        /*for (int i = 512; i > 400; i++)
-        {
-            SetPosition(16, i);
-            SetPosition(15, 512 - i);
-            delay(2);
-        }*/
-
-        for (int i = 512; i < 825; i++)
-        {
-            SetPosition(16, i);
-            delay(2);
-        }
-        for (int i = 825; i > 500; i--)
-        {
-            SetPosition(16, i);
-            delay(2);
-        }
-
-        /*for (int j = 0; j < 4; j++)
-        {
-            for (int i = 500; i < 825; i++)
-            {
-                SetPosition(16, i);
-                delay(2);
-            }
-            for (int i = 825; i > 500; i--)
-            {
-                SetPosition(16, i);
-                delay(2);
-            }
-        }*/
+        hand(180, 180, 0);
     }
-    else
-    {
-        
-    }
-    
 }
