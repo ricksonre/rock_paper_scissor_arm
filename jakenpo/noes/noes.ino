@@ -21,6 +21,7 @@ void setup(){
   SetPosition(16, 512);
   SetPosition(17, 512);
   SetPosition(18, 512);
+  delay(100);
 // Turning torque off of the servos on one arm.
   Relax(12);    
   Relax(13);
@@ -41,6 +42,7 @@ void loop(){
   Serial.println(ax12GetRegister(16, 36, 2));
   Serial.println(ax12GetRegister(17, 36, 2));
   Serial.println(ax12GetRegister(18, 36, 2));
+  Serial.println();
 
   delay(5000);
 }
