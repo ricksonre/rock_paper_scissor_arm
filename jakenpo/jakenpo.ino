@@ -40,13 +40,7 @@ Servo servo_1;
 Servo servo_2;
 Servo servo_3;
 
-Joint rotation(12,5);
-Joint shoulder_1(13, 5);
-Joint shoulder_2(14, 5);
-Joint elbow_1(15, 5);
-Joint elbow_2(16, 5);
-Joint wrist_v(17, 5);
-Joint wrist_h(18, 5);
+
 
 void setup()
 {
@@ -62,13 +56,14 @@ void setup()
 
     hand(0, 0, 0);
 
-    rotation.center();
-    shoulder_1.center();
-    shoulder_2.center();
-    elbow_1.center();
-    elbow_2.center();
-    wrist_h.center();
-    wrist_v.center();
+    SetPosition(12,512);
+    SetPosition(13, 512);
+    SetPosition(14, 512);
+    SetPosition(15, 512);
+    SetPosition(16, 512);
+    SetPosition(17, 512);
+    SetPosition(18, 512);
+    delay(1000);
 }
 int get_input()
 {
@@ -97,6 +92,8 @@ void loop()
     {
         shoulder_1.move(800);
         shoulder_2.move(800);
+        delay(500);
+        
 
         hand(0, 0, 0);
     }
