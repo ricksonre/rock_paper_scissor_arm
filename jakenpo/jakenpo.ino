@@ -157,7 +157,7 @@ void loop()
             SetPosition(16, i);
             delay(2);
         }
-        for (int i = 825; i > 200; i--)
+        for (int i = 825; i > 500; i--)
         {
             SetPosition(16, i);
             delay(2);
@@ -165,16 +165,21 @@ void loop()
 
         for (int j = 0; j < 4; j++)
         {
-            for (int i = 200; i < 825; i++)
+            for (int i = 500; i < 825; i++)
             {
                 SetPosition(16, i);
                 delay(2);
             }
-            for (int i = 825; i > 200; i--)
+            for (int i = 825; i > 500; i--)
             {
                 SetPosition(16, i);
                 delay(2);
             }
         }
     }
+    else
+    {
+        
+    }
+    
 }
