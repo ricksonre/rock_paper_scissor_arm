@@ -40,6 +40,14 @@ Servo servo_1;
 Servo servo_2;
 Servo servo_3;
 
+Joint rotation(12,5);
+Joint shoulder_1(13, 5);
+Joint shoulder_2(14, 5);
+Joint elbow_1(15, 5);
+Joint elbow_2(16, 5);
+Joint wrist_v(17, 5);
+Joint wrist_h(18, 5);
+
 void setup()
 {
     Serial.begin(9600);
@@ -53,6 +61,14 @@ void setup()
     pinMode(button_3, INPUT);
 
     hand(0, 0, 0);
+
+    rotation.center();
+    shoulder_1.center();
+    shoulder_2.center();
+    elbow_1.center();
+    elbow_2.center();
+    wrist_h.center();
+    wrist_v.center();
 }
 int get_input()
 {
@@ -79,6 +95,9 @@ void loop()
     
     if (state == 0)
     {
+        shoulder_1.move(800);
+        shoulder_2.move(800);
+
         hand(0, 0, 0);
     }
     else if (state == 1)
