@@ -1,5 +1,9 @@
 /*
 ax12.h
+	ax12SetRegister
+	ax12GetRegister
+	ax12SetRegister2
+	ax12GetRegister2
     SetPosition(id,pos)
     GetPosition(id)
     TorqueOn(id)
@@ -15,14 +19,11 @@ Buttons
     d3,d4,d5
 Max rotation
     12: 0 1023
-    13, 14 ?
-    15, 16 ?
-    17 200 - 800
-    18 200 - 800?
-   
-    Observation:
-      c++11 does not work
-      enuns don't work
+    13 - 18: 200 - 800
+	
+Observation:
+	c++11 does not work
+    enuns don't work
 */
 #include <ax12.h>
 #include <Servo.h>
@@ -33,25 +34,45 @@ const int button_1 = 3;
 const int button_2 = 4;
 const int button_3 = 5;
 
+const int vel = 
+
 Servo servo_1;
 Servo servo_2;
 Servo servo_3;
 
 void move(int a1,int a2,int a3,int a4,int a5,int a6, int a7)
 {
+  
 	SetPosition(12,a1);
-	SetPosition(12,a2);
-	SetPosition(12,a3);
-	SetPosition(12,a4);
-	SetPosition(12,a5);
-	SetPosition(12,a6);
-	SetPosition(12,a7);
+	SetPosition(13,a2);
+	SetPosition(14,a3);
+	SetPosition(15,a4);
+	SetPosition(16,a5);
+	SetPosition(17,a6);
+	SetPosition(18,a7);
+	
+	ax12SetRegister2(12, 32, vel);
+	ax12SetRegister2(13, 32, vel);
+	ax12SetRegister2(14, 32, vel);
+	ax12SetRegister2(15, 32, vel);
+	ax12SetRegister2(16, 32, vel);
+	ax12SetRegister2(17, 32, vel);
+	ax12SetRegister2(18, 32, vel);
+}
+
+bool is_pos(int a1,int a2,int a3,int a4,int a5,int a6, int a7)
+{
+    return ( GetPosition(12) == a1 
+		&& GetPosition(13) == a2 && GetPosition(14) == a3 
+		&& GetPosition(15) == a4 && GetPosition(16) == a5 
+		&& GetPosition(17) == a6 && GetPosition(18) == a7)
 }
 
 void center()
 {
-    move(512,512,512,512,512,512,512);
-    delay(800);
+	move(512,512,512,512,512,512,512);
+	while(!pos(512,512,512,512,512,512,512)){}
+		
 }
 
 void hello()
@@ -64,28 +85,14 @@ void hello()
 	int m_17[] = {535,542,536,542,542,542,542,542};
 	int m_18[] = {505,393,323,393,522,597,709,597};
 	
+	
+	
 	for(int i=0;i<8;i++)
 	{
-		move(m_12[i],m_12[i],m_12[i],m_12[i],m_12[i],m_12[i]);
-		delay(40);
+		move(m_12[i],m_13[i],m_14[i],m_15[i],m_16[i],m_17[i]);
+		while(!is_pos(m_12[i],m_13[i],m_14[i],m_15[i],m_16[i],m_17[i])){}
 	}
-
-}
-
-void setup()
-{
-    Serial.begin(9600);
-
-    servo_1.attach(0);
-    servo_2.attach(1);
-    servo_3.attach(2);
-
-    pinMode(button_1, INPUT);
-    pinMode(button_2, INPUT);
-    pinMode(button_3, INPUT);
-
-    hand(0, 0, 0);
-    center();
+			
 }
 
 int get_input()
@@ -107,9 +114,21 @@ void hand(int upper, int middle, int lower)
     servo_3.write(lower);
 }
 
+void setup()
+{
+    Serial.begin(9600);
 
+    servo_1.attach(0);
+    servo_2.attach(1);
+    servo_3.attach(2);
 
+    pinMode(button_1, INPUT);
+    pinMode(button_2, INPUT);
+    pinMode(button_3, INPUT);
 
+    hand(0, 0, 0);
+    center();
+}
 
 void loop()
 {
@@ -123,7 +142,6 @@ void loop()
     }
     else if (state == 1)
     {
-
         center();
 		
         hand(180, 180, 180);
