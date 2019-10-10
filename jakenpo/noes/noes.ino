@@ -28,7 +28,7 @@ void setup(){
  
 void loop(){
 // Reading "Present Position" register value, writing it to variable
-  if (digitalRead(button_1) == HIGH){
+  if (digitalRead(3) == HIGH){
     Serial.println(ax12GetRegister(12, 36, 2));
     Serial.println(ax12GetRegister(13, 36, 2));
     Serial.println(ax12GetRegister(14, 36, 2));
