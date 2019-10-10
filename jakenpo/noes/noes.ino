@@ -2,15 +2,7 @@
 #include <BioloidController.h>
  
 BioloidController bioloid = BioloidController(1000000);
- 
-int R12;
-int R13;
-int R14;
-int R15;
-int R16;
-int R17;
-int R18;
- 
+
 void setup(){
   Serial.begin(9600);
 // Initially moving all servos to default position.
@@ -43,6 +35,5 @@ void loop(){
   Serial.println(ax12GetRegister(17, 36, 2));
   Serial.println(ax12GetRegister(18, 36, 2));
   Serial.println();
-
-  delay(5000);
+  delay(20);
 }

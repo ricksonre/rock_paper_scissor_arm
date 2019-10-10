@@ -6,60 +6,64 @@ class Joint
     double velocity;
     int goal;
     int min_rotation, max_rotation;
+    bool moving;
     Timer timer;
 
 public:
-    Joint(int id, double vel)
+
+    void initialize(int id, double vel)
     {
-        this->id = id;
-        velocity = vel;
-        max_rotation = 800;
-        min_rotation = 200;
+        set_joint(id,vel,200,800);
     }
 
-    Joint(int id, double vel, int min, int max)
+    void initialize(int id, double vel, int min, int max)
     {
         this->id = id;
         velocity = vel;
         max_rotation = max;
         min_rotation = min;
+        moving = false;
+        goal = GetPosition(id);
+
+        SetPosition(id,512);
+        delay(200);
     }
 
-    /*void update()
-    {
-        if (timer.get_millis() > 1 / velocity)
-        {
-            int curr = GetPosition(id);
-
-            if (goal < curr)
-                SetPosition(id, curr + 1);
-            if (goal > curr)
-                SetPosition(id, curr - 1);
-
-            timer.restart();
-        }
-    }*/
     void move(int pos)
     {
-        if (pos < max_rotation && pos > min_rotation)
+        if (pos > max_rotation)         goal = 800;
+        else if (pos < min_rotation)    goal = 200;
+        else                            goal = pos;
+        
+        timer.restart();
+        moving = true;
+    }
+
+    void update()
+    {
+        int pos = GetPosition(id);
+        if(goal != pos)
         {
-            //goal = pos;
-            int curr = GetPosition(id);
+            if(timer.get_millis() > 1000/velocity)
+            {
+                if(goal < pos)
+                    SetPosition(id, pos - 1);
+                else
+                    SetPosition(id, pos + 1);
 
-            if (goal < curr)
-                SetPosition(id, curr + 1);
-            if (goal > curr)
-                SetPosition(id, curr - 1);
-            else return;
-
-            delay(1000/velocity);
+                timer.restart();
+            }
         }
+        else
+        {
+            moving = false;
+        }
+        
     }
 
     void center()
     {
-        SetPosition(id, 512);
-        deelay(200);
+        move(512);
     }
 
     void relax()
