@@ -34,7 +34,7 @@ const int button_1 = 3;
 const int button_2 = 4;
 const int button_3 = 5;
 
-const int vel = 
+const int vel = 100;
 
 Servo servo_1;
 Servo servo_2;
@@ -65,13 +65,14 @@ bool is_pos(int a1,int a2,int a3,int a4,int a5,int a6, int a7)
     return ( GetPosition(12) == a1 
 		&& GetPosition(13) == a2 && GetPosition(14) == a3 
 		&& GetPosition(15) == a4 && GetPosition(16) == a5 
-		&& GetPosition(17) == a6 && GetPosition(18) == a7)
+		&& GetPosition(17) == a6 && GetPosition(18) == a7);
 }
 
 void center()
 {
 	move(512,512,512,512,512,512,512);
-	while(!pos(512,512,512,512,512,512,512)){}
+	//while(!is_pos(512,512,512,512,512,512,512)){Serial.println(1);}
+delay(800);
 		
 }
 
@@ -89,8 +90,9 @@ void hello()
 	
 	for(int i=0;i<8;i++)
 	{
-		move(m_12[i],m_13[i],m_14[i],m_15[i],m_16[i],m_17[i]);
-		while(!is_pos(m_12[i],m_13[i],m_14[i],m_15[i],m_16[i],m_17[i])){}
+		move(m_12[i],m_13[i],m_14[i],m_15[i],m_16[i],m_17[i],m_18[i]);
+		//while(!is_pos(m_12[i],m_13[i],m_14[i],m_15[i],m_16[i],m_17[i],m_18[i])){}
+                delay(800);
 	}
 			
 }
