@@ -13,6 +13,7 @@ void setup(){
   SetPosition(16, 512);
   SetPosition(17, 512);
   SetPosition(18, 512);
+  pinMode(3, INPUT);
   delay(100);
 // Turning torque off of the servos on one arm.
   Relax(12);    
@@ -27,13 +28,14 @@ void setup(){
  
 void loop(){
 // Reading "Present Position" register value, writing it to variable
-  Serial.println(ax12GetRegister(12, 36, 2));
-  Serial.println(ax12GetRegister(13, 36, 2));
-  Serial.println(ax12GetRegister(14, 36, 2));
-  Serial.println(ax12GetRegister(15, 36, 2));
-  Serial.println(ax12GetRegister(16, 36, 2));
-  Serial.println(ax12GetRegister(17, 36, 2));
-  Serial.println(ax12GetRegister(18, 36, 2));
-  Serial.println();
-  delay(20);
+  if (digitalRead(button_1) == HIGH){
+    Serial.println(ax12GetRegister(12, 36, 2));
+    Serial.println(ax12GetRegister(13, 36, 2));
+    Serial.println(ax12GetRegister(14, 36, 2));
+    Serial.println(ax12GetRegister(15, 36, 2));
+    Serial.println(ax12GetRegister(16, 36, 2));
+    Serial.println(ax12GetRegister(17, 36, 2));
+    Serial.println(ax12GetRegister(18, 36, 2));
+    Serial.println();
+  }
 }
