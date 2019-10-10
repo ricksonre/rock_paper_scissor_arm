@@ -62,6 +62,15 @@ void move(int a1,int a2,int a3,int a4,int a5,int a6, int a7)
 
 bool is_pos(int a1,int a2,int a3,int a4,int a5,int a6, int a7)
 {
+	Serial.println(GetPosition(12));
+	Serial.println(GetPosition(13));
+	Serial.println(GetPosition(14));
+	Serial.println(GetPosition(15));
+	Serial.println(GetPosition(16));
+	Serial.println(GetPosition(17));
+	Serial.println(GetPosition(18));
+	Serial.println();
+
     return ( GetPosition(12) == a1 
 		&& GetPosition(13) == a2 && GetPosition(14) == a3 
 		&& GetPosition(15) == a4 && GetPosition(16) == a5 
@@ -71,8 +80,7 @@ bool is_pos(int a1,int a2,int a3,int a4,int a5,int a6, int a7)
 void center()
 {
 	move(512,512,512,512,512,512,512);
-	//while(!is_pos(512,512,512,512,512,512,512)){Serial.println(1);}
-delay(800);
+	while(!is_pos(512,512,512,512,512,512,512)){}
 		
 }
 
@@ -92,7 +100,7 @@ void hello()
 	{
 		move(m_12[i],m_13[i],m_14[i],m_15[i],m_16[i],m_17[i],m_18[i]);
 		//while(!is_pos(m_12[i],m_13[i],m_14[i],m_15[i],m_16[i],m_17[i],m_18[i])){}
-                delay(800);
+        delay(800);
 	}
 			
 }
